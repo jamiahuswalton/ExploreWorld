@@ -61,12 +61,11 @@ namespace ExploreWorld
             string currentTileType = tileGrid[playerCurrentRow, playerCurrentCol].getTerrain();
             int currentHealthModifer = tileGrid[playerCurrentRow, playerCurrentCol].getHealthModifer();
 
+            //Update health if needed
             if (currentTileType.Equals("Fire"))
             {
                 myCharacter.UpdatePlayerHealth(currentHealthModifer);
             }
-
-            //Update health if needed
         }
 
         // format of method: [scope of function] [static if not being called on class object] [value type of what is being returned]
