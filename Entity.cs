@@ -6,11 +6,11 @@ namespace ExploreWorld
 {
     class Entity
     {
-        public string name;
-        public int healthPoints;
-        public bool isCollidable;
-        public bool isMovable;
-        public bool isAbleToReceiveDamage;
+        public string name; // name of the entity
+        public int healthPoints; // health of entity
+        public bool isCollidable; // can you make contact with it
+        public bool isMovable; // can move entity
+        public bool isAbleToReceiveDamage; // can damage entity
         
         public Entity(string myName, int myHealthPoints, bool myIsCollidable, bool myIsMovable, bool myIsAbleToReceiveDamage)
         {
