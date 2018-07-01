@@ -6,6 +6,7 @@ namespace ExploreWorld
 {
     class Tile
     {
+        //This class is used for the different tiles in the world
         private string terrain;
         private float speedModifer; // This will be used as a multiplier
         private int healthModifer; // This will be used to add to the health (a negative number will reduce health)
