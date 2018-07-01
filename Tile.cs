@@ -7,7 +7,7 @@ namespace ExploreWorld
     class Tile
     {
         //This class is used for the different tiles in the world
-        private string terrain;
+        private string terrain; // This will tell what the type of terrain is
         private float speedModifer; // This will be used as a multiplier
         private int healthModifer; // This will be used to add to the health (a negative number will reduce health)
         private bool isPassable; // This will be used to determine whether you can occupy this tile
