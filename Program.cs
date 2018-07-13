@@ -58,11 +58,11 @@ namespace ExploreWorld
         private static void EvaluateTile(Tile[,] tileGrid, int playerCurrentRow, int playerCurrentCol, Character myCharacter)
         {
             //Check the tile type
-            string currentTileType = tileGrid[playerCurrentRow, playerCurrentCol].getTerrain();
+            Tile.TerrainTypes currentTileType = tileGrid[playerCurrentRow, playerCurrentCol].getTerrain();
             int currentHealthModifer = tileGrid[playerCurrentRow, playerCurrentCol].getHealthModifer();
 
             //Update health if needed
-            if (currentTileType.Equals("Fire"))
+            if (currentTileType == Tile.TerrainTypes.Fire)
             {
                 myCharacter.UpdatePlayerHealth(currentHealthModifer);
             }
@@ -87,22 +87,22 @@ namespace ExploreWorld
                     }
                     else
                     {
-                        string currentTerrain = tileGrid[i, j].getTerrain();
-                        if (currentTerrain.Equals("Water"))
+                        Tile.TerrainTypes currentTerrain = tileGrid[i, j].getTerrain();
+                        if (currentTerrain == Tile.TerrainTypes.Water)
                         {
                             Console.Write("W");
                         } 
-                        else if (currentTerrain.Equals("Fire"))
+                        else if (currentTerrain == Tile.TerrainTypes.Fire)
                         {
                             //Print Fire to console
                             Console.Write("F");
                         }
-                        else if (currentTerrain.Equals("Rock"))
+                        else if (currentTerrain == Tile.TerrainTypes.Rock)
                         {
                             //Print Rock
                             Console.Write("R");
                         }
-                        else if (currentTerrain.Equals("Grass"))
+                        else if (currentTerrain == Tile.TerrainTypes.Grass)
                         {
                             //Print grass
                             Console.Write("G");
@@ -127,10 +127,10 @@ namespace ExploreWorld
             //Need to create 16 tiles (4 X 4)
 
             //Tile types
-            Tile waterTile = new Tile("Water", 0.75f, 0, true);
-            Tile fireTile = new Tile("Fire", 1.0f, -3, true);
-            Tile grassTile = new Tile("Grass", 1.0f, 0, true);
-            Tile rockTile = new Tile("Rock", .80f, 0, false);
+            Tile waterTile = new Tile(Tile.TerrainTypes.Water, 0.75f, 0, true);
+            Tile fireTile = new Tile(Tile.TerrainTypes.Fire, 1.0f, -3, true);
+            Tile grassTile = new Tile(Tile.TerrainTypes.Grass, 1.0f, 0, true);
+            Tile rockTile = new Tile(Tile.TerrainTypes.Rock, .80f, 0, false);
 
             //World tile grid
             Tile[,] tileGrid = new Tile[rowSize, colSize]
