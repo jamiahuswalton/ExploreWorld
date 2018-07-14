@@ -180,28 +180,25 @@ namespace ExploreWorld
             // loop for continual movement
             while (true)
             {
-                if (canRun)
+                if (canRun && JayW.getHealth() > 0)
                 {
-                    if (JayW.getHealth() > 0)
+                    Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
+                    // printing out game board
+                    PrintGameBoard(tileGrid, currRow, currCol);
+
+                    // reading direction from user input
+                    string direction = Console.ReadLine();
+
+                    // check if user wants to exit the game
+                    if (direction.ToLower() == "x")
                     {
-                        Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
-                        // printing out game board
-                        PrintGameBoard(tileGrid, currRow, currCol);
-
-                        // reading direction from user input
-                        string direction = Console.ReadLine();
-
-                        // check if user wants to exit the game
-                        if (direction.ToLower() == "x")
-                        {
-                            Console.WriteLine("Thank you for joining the journey!\n");
-                            break;
-                        }
-
-                        Move(tileGrid, direction);
-                        EvaluateTile(tileGrid, currRow, currCol, JayW);
-                        Console.WriteLine("Health: " + JayW.getHealth().ToString());
+                        Console.WriteLine("Thank you for joining the journey!\n");
+                        break;
                     }
+
+                    Move(tileGrid, direction);
+                    EvaluateTile(tileGrid, currRow, currCol, JayW);
+                    Console.WriteLine("Health: " + JayW.getHealth().ToString());
                 }                
             }
 
