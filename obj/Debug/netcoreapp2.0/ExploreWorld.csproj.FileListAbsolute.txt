@@ -1,4 +1,3 @@
-C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.csprojResolveAssemblyReference.cache
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.csproj.CoreCompileInputs.cache
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.AssemblyInfoInputs.cache
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.AssemblyInfo.cs
@@ -9,3 +8,4 @@ C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\bin\Debug\netcoreapp2.0\Ex
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\bin\Debug\netcoreapp2.0\ExploreWorld.pdb
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.dll
 C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.pdb
+C:\Users\jamia\source\repos\ExploreWorld\ExploreWorld\obj\Debug\netcoreapp2.0\ExploreWorld.csprojResolveAssemblyReference.cache
