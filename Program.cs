@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers; //We want to use this package to add timers to our game.
 
 namespace ExploreWorld
 {
@@ -8,6 +9,18 @@ namespace ExploreWorld
         static int currCol = 0;
         const int rowSize = 4;
         const int colSize = 4;
+
+        //Timer properties
+        /* There are 60 frames per second. We want to convert that to milseconds (assuming frames has no units). 
+         * 1 sec / 60 frames >> (1 sec / 60 frames) X (1000 m-sec / 1 sec) >> 16.67 m-sec 
+         * The above equation means that we want our interval to be about 16.67 m-sec */
+        static Timer myTimer = new System.Timers.Timer();
+        // Set timer interval in m-sec
+        static int framePerSecond = 60;
+        static double intervalForTimerInMilSeconds;
+        static bool canRun;
+
+
 
         public static void Move(Tile[,] tileGrid, string direction)
         {
@@ -118,8 +131,19 @@ namespace ExploreWorld
             Console.WriteLine();
         }
 
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            canRun = true;
+        }
+
         static void Main(string[] args)
         {
+            intervalForTimerInMilSeconds =  (1 / (double)framePerSecond) * 1000;
+            myTimer.Interval = intervalForTimerInMilSeconds;
+            myTimer.Elapsed += OnTimedEvent;
+            myTimer.Start();
+            canRun = false;
+
             Console.WriteLine("Hello World!");
             Character JayW = new Character("Jay", 100, false, true, true, 100, 1);
             //Character person = new Character(100, "Bob", false, true, true, 20, 1);
@@ -153,25 +177,31 @@ namespace ExploreWorld
                 "finding the axe and cutting down the tree.\nUse w, s, a and d to move around and x to exit the game.  Enjoy!\n");
 
             // loop for continual movement
-            while (JayW.getHealth() > 0)
+            while (true)
             {
-                Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
-                // printing out game board
-                PrintGameBoard(tileGrid, currRow, currCol);
-
-                // reading direction from user input
-                string direction = Console.ReadLine();
-
-                // check if user wants to exit the game
-                if (direction.ToLower() == "x")
+                if (canRun)
                 {
-                    Console.WriteLine("Thank you for joining the journey!\n");
-                    break;
-                }
+                    if (JayW.getHealth() > 0)
+                    {
+                        Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
+                        // printing out game board
+                        PrintGameBoard(tileGrid, currRow, currCol);
 
-                Move(tileGrid, direction);
-                EvaluateTile(tileGrid, currRow, currCol, JayW);
-                Console.WriteLine("Health: " + JayW.getHealth().ToString());
+                        // reading direction from user input
+                        string direction = Console.ReadLine();
+
+                        // check if user wants to exit the game
+                        if (direction.ToLower() == "x")
+                        {
+                            Console.WriteLine("Thank you for joining the journey!\n");
+                            break;
+                        }
+
+                        Move(tileGrid, direction);
+                        EvaluateTile(tileGrid, currRow, currCol, JayW);
+                        Console.WriteLine("Health: " + JayW.getHealth().ToString());
+                    }
+                }                
             }
 
             Console.WriteLine("Game Over!");
