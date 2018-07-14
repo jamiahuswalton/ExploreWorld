@@ -138,6 +138,7 @@ namespace ExploreWorld
 
         static void Main(string[] args)
         {
+            //Start the timer and set the interval
             intervalForTimerInMilSeconds =  (1 / (double)framePerSecond) * 1000;
             myTimer.Interval = intervalForTimerInMilSeconds;
             myTimer.Elapsed += OnTimedEvent;
@@ -205,10 +206,6 @@ namespace ExploreWorld
             }
 
             Console.WriteLine("Game Over!");
-
-            //Ask the player if they want to play again
-
-
         }
     }
 }
