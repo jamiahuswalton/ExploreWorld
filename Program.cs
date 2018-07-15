@@ -15,12 +15,74 @@ namespace ExploreWorld
          * 1 sec / 60 frames >> (1 sec / 60 frames) X (1000 m-sec / 1 sec) >> 16.67 m-sec 
          * The above equation means that we want our interval to be about 16.67 m-sec */
         static Timer myTimer = new System.Timers.Timer();
-        // Set timer interval in m-sec
+
+        /// <summary>
+        /// This variable is used to set the frame perseconds for the game
+        /// </summary>
         static int framePerSecond = 60;
         static double intervalForTimerInMilSeconds;
         static bool canRun;
 
+        static void Main(string[] args)
+        {
+            //Start the timer and set the interval
+            intervalForTimerInMilSeconds = (1 / (double)framePerSecond) * 1000;
+            myTimer.Interval = intervalForTimerInMilSeconds;
+            myTimer.Elapsed += OnTimedEvent;
+            myTimer.Start();
+            canRun = false;
 
+            //Welcome user to the game
+            Console.WriteLine("Hello World!");
+            Character JayW = new Character("Jay", 100, false, true, true, 100, 1);
+            //Character person = new Character(100, "Bob", false, true, true, 20, 1);
+
+            //Need to create 16 tiles (4 X 4)
+            //Tile types
+            Tile waterTile = new Tile(Tile.TerrainTypes.Water, 0.75f, 0, true);
+            Tile fireTile = new Tile(Tile.TerrainTypes.Fire, 1.0f, -3, true);
+            Tile grassTile = new Tile(Tile.TerrainTypes.Grass, 1.0f, 0, true);
+            Tile rockTile = new Tile(Tile.TerrainTypes.Rock, .80f, 0, false);
+
+            //World tile grid
+            Tile[,] tileGrid = new Tile[rowSize, colSize]
+            {
+                {waterTile, grassTile, rockTile, fireTile},
+                {grassTile, fireTile, waterTile, rockTile},
+                {fireTile, rockTile, grassTile, waterTile },
+                {rockTile, waterTile, fireTile, grassTile },
+            };
+
+            Console.WriteLine("Welcome to the Explore the World game! You are tasked with exploring the map, " +
+                "finding the axe and cutting down the tree.\nUse w, s, a and d to move around and x to exit the game.  Enjoy!\n");
+
+            // loop for continual movement
+            while (true)
+            {
+                if (canRun && JayW.getHealth() > 0)
+                {
+                    Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
+                    // printing out game board
+                    PrintGameBoard(tileGrid, currRow, currCol);
+
+                    // reading direction from user input
+                    string direction = Console.ReadLine();
+
+                    // check if user wants to exit the game
+                    if (direction.ToLower() == "x")
+                    {
+                        Console.WriteLine("Thank you for joining the journey!\n");
+                        break;
+                    }
+
+                    Move(tileGrid, direction);
+                    EvaluateTile(tileGrid, currRow, currCol, JayW);
+                    Console.WriteLine("Health: " + JayW.getHealth().ToString());
+                }
+            }
+
+            Console.WriteLine("Game Over!");
+        }
 
         public static void Move(Tile[,] tileGrid, string direction)
         {
@@ -134,75 +196,6 @@ namespace ExploreWorld
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             canRun = true;
-        }
-
-        static void Main(string[] args)
-        {
-            //Start the timer and set the interval
-            intervalForTimerInMilSeconds =  (1 / (double)framePerSecond) * 1000;
-            myTimer.Interval = intervalForTimerInMilSeconds;
-            myTimer.Elapsed += OnTimedEvent;
-            myTimer.Start();
-            canRun = false;
-
-            Console.WriteLine("Hello World!");
-            Character JayW = new Character("Jay", 100, false, true, true, 100, 1);
-            //Character person = new Character(100, "Bob", false, true, true, 20, 1);
-
-            //Need to create 16 tiles (4 X 4)
-
-            //Tile types
-            Tile waterTile = new Tile(Tile.TerrainTypes.Water, 0.75f, 0, true);
-            Tile fireTile = new Tile(Tile.TerrainTypes.Fire, 1.0f, -3, true);
-            Tile grassTile = new Tile(Tile.TerrainTypes.Grass, 1.0f, 0, true);
-            Tile rockTile = new Tile(Tile.TerrainTypes.Rock, .80f, 0, false);
-
-            //World tile grid
-            Tile[,] tileGrid = new Tile[rowSize, colSize]
-            {
-                {waterTile, grassTile, rockTile, fireTile},
-                {grassTile, fireTile, waterTile, rockTile},
-                {fireTile, rockTile, grassTile, waterTile },
-                {rockTile, waterTile, fireTile, grassTile },
-            };
-
-            /*
-            int[,] tileGrid = new int[rowSize, colSize]
-                                    {{0, 0, 1, 0},
-                                {1, 0, 0, 0},
-                                {0, 0, 0, 1},
-                                {0, 1, 0, 0}};
-            */
-
-            Console.WriteLine("Welcome to the Explore the World game! You are tasked with exploring the map, " +
-                "finding the axe and cutting down the tree.\nUse w, s, a and d to move around and x to exit the game.  Enjoy!\n");
-
-            // loop for continual movement
-            while (true)
-            {
-                if (canRun && JayW.getHealth() > 0)
-                {
-                    Console.WriteLine("Where do you want to go traveler? The X represents where you are now.\n");
-                    // printing out game board
-                    PrintGameBoard(tileGrid, currRow, currCol);
-
-                    // reading direction from user input
-                    string direction = Console.ReadLine();
-
-                    // check if user wants to exit the game
-                    if (direction.ToLower() == "x")
-                    {
-                        Console.WriteLine("Thank you for joining the journey!\n");
-                        break;
-                    }
-
-                    Move(tileGrid, direction);
-                    EvaluateTile(tileGrid, currRow, currCol, JayW);
-                    Console.WriteLine("Health: " + JayW.getHealth().ToString());
-                }                
-            }
-
-            Console.WriteLine("Game Over!");
         }
     }
 }
